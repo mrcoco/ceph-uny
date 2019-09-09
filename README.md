@@ -21,11 +21,10 @@ $config = array(
 $client = new Client($config);
 $bucketName = 'my-bucket';
 ```
-``
 ### create bucket;
 ```php
 $client->createBucket($bucketName);
-``
+```
 
 ### Dump all existing buckets.
 ```php
