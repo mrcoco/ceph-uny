@@ -15,6 +15,7 @@ interface ClientInterface
     public function deleteBucket(string $name);
     public function getBuckets();
     public function getFile(string $bucket, string $name);
+    public function getUrl(string $bucket, string $name);
     public function putFromUrl(string $bucket, string $file, string $name = null);
     public function putFromFile(string $bucket, string $file, string $name = null);
     public function removeFile(string $bucket, string $name);

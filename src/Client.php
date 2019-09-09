@@ -107,4 +107,12 @@ class Client implements ClientInterface
         header("Content-Type: {$result['ContentType']}");
         return $result['Body'];
     }
+
+    public function getUrl(string $bucket, string $name)
+    {
+        return $this->s3Client->getObjectUrl([
+            'Bucket' => $bucket,
+            'Key' => $name,
+        ]);
+    }
 }
