@@ -110,9 +110,6 @@ class Client implements ClientInterface
 
     public function getUrl(string $bucket, string $name)
     {
-        return $this->s3Client->getObjectUrl([
-            'Bucket' => $bucket,
-            'Key' => $name,
-        ]);
+        return $this->s3Client->getObjectUrl($bucket,$name);
     }
 }
