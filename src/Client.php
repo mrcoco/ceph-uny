@@ -27,19 +27,19 @@ class Client implements ClientInterface
         ]);
     }
 
-    public function deleteBucket(string $name)
+    public function deleteBucket(string $name): Result
     {
         return $this->s3Client->deleteBucket([
             'Bucket' => $name,
         ]);
     }
 
-    public function getBuckets()
+    public function getBuckets(): Result
     {
         return $this->s3Client->listBuckets();
     }
 
-    public function getFile(string $bucket, string $name)
+    public function getFile(string $bucket, string $name): Result
     {
         return $this->s3Client->getObject([
             'Bucket' => $bucket,
@@ -47,7 +47,7 @@ class Client implements ClientInterface
         ]);
     }
 
-    public function putFromUrl(string $bucket, string $file, string $name = null)
+    public function putFromUrl(string $bucket, string $file, string $name = null): Result
     {
         if (is_null($name) || empty($name)) {
             $name = basename($file);
@@ -60,7 +60,7 @@ class Client implements ClientInterface
         ]);
     }
 
-    public function putFromFile(string $bucket, string $file, string $name = null)
+    public function putFromFile(string $bucket, string $file, string $name = null): Result
     {
         if (is_null($name) || empty($name)) {
             $name = basename($file);
@@ -75,7 +75,7 @@ class Client implements ClientInterface
 
 
 
-    public function removeFile(string $bucket, string $name)
+    public function removeFile(string $bucket, string $name): Result
     {
         return $this->s3Client->deleteObject([
             'Bucket' => $bucket,
@@ -86,7 +86,7 @@ class Client implements ClientInterface
     public function moveFile(string $sourceBucket,
                              string $sourceName,
                              string $destinationBucket,
-                             string $destinationName = null)
+                             string $destinationName = null): Result
     {
         if (is_null($destinationName) || empty($destinationName)) {
             $destinationName = $sourceName;
