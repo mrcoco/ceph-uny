@@ -18,6 +18,7 @@ interface ClientInterface
     public function putFromUrl(string $bucket, string $file, string $name = null);
     public function putFromFile(string $bucket, string $file, string $name = null);
     public function removeFile(string $bucket, string $name);
+    public function downloadFile(string $bucket, string $name);
     public function moveFile(
         string $sourceBucket,
         string $sourceName,

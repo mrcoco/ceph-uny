@@ -73,6 +73,8 @@ class Client implements ClientInterface
         ]);
     }
 
+
+
     public function removeFile(string $bucket, string $name)
     {
         return $this->s3Client->deleteObject([
@@ -94,5 +96,15 @@ class Client implements ClientInterface
             'Key' => $sourceName,
             'CopySource' => "{$destinationBucket}/{$destinationName}",
         ]);
+    }
+
+    public function downloadFile(string $bucket, string $name)
+    {
+        $result = $this->s3Client->getObject([
+            'Bucket' => $bucket,
+            'Key' => $name,
+        ]);
+        header("Content-Type: {$result['ContentType']}");
+        return $result['Body'];
     }
 }
