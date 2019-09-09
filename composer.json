@@ -1,0 +1,26 @@
+{
+  "name": "mrcoco/ceph-uny",
+  "type": "library",
+  "version": "0.0.1",
+  "description": "Provides a CephClient for storing files UNY cloud object storage.",
+  "keywords": [
+    "AWS S3",
+    "Ceph Client",
+    "storage",
+    "PHP"
+  ],
+  "homepage": "https://cempakaweb.com",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dwi Agus Purwanto",
+      "email": "dwi.agus.pur@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "CephUny\\": "src"}
+  },
+  "require": {
+    "aws/aws-sdk-php": "^3.110"
+  }
+}
