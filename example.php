@@ -36,3 +36,8 @@ try{
 }catch (Aws\S3\Exception\S3Exception $e){
     echo "There was an error uploading the file.\n";
 }
+
+// Get file from bucket
+$fileName = basename($file);
+$result = $client->getFile($bucketName, $fileName);
+var_dump($result);
