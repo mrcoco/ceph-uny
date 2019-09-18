@@ -63,7 +63,7 @@ var_dump($result);
 ````
 
 ### get preSign URL expired
-``php
+```php
 $bucketName = "mybocket";
 $file = "uny.png";
 $fileName = basename($file);
