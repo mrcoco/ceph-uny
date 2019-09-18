@@ -61,3 +61,13 @@ $fileName = basename($file);
 $result = $client->getFile($bucketName, $fileName);
 var_dump($result);
 ````
+
+### get preSign URL expired
+``php
+$bucketName = "mybocket";
+$file = "uny.png";
+$fileName = basename($file);
+$expired = "+30 minutes";
+$url = $client->preSignUrl($bucketName, $fileName,$expired);
+echo $url;
+````
