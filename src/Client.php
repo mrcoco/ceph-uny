@@ -119,7 +119,8 @@ class Client implements ClientInterface
             'Bucket' => $bucket,
             'Key' => $name,
             ]);
-        return $this->s3Client->createPresignedRequest($cmd,$timeout);
+        $request = $this->s3Client->createPresignedRequest($cmd,$timeout);
+        return (string) $request->getUri();
 
     }
 }
