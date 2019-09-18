@@ -15,11 +15,20 @@ class Client implements ClientInterface
 
     private $s3Client;
 
+    /**
+     * Client constructor.
+     * @param array $client
+     */
     public function __construct($client = array())
     {
         $this->s3Client = new S3Client($client);
     }
 
+    /**
+     * Create Bucket
+     * @param string $name
+     * @return Result
+     */
     public function createBucket(string $name): Result
     {
         return $this->s3Client->createBucket([
@@ -27,6 +36,11 @@ class Client implements ClientInterface
         ]);
     }
 
+    /**
+     * Delete existing Bucket
+     * @param string $name
+     * @return Result
+     */
     public function deleteBucket(string $name): Result
     {
         return $this->s3Client->deleteBucket([
@@ -34,11 +48,21 @@ class Client implements ClientInterface
         ]);
     }
 
+    /**
+     * get list Bucket
+     * @return Result
+     */
     public function getBuckets(): Result
     {
         return $this->s3Client->listBuckets();
     }
 
+    /**
+     * Get file in buket
+     * @param string $bucket
+     * @param string $name
+     * @return Result
+     */
     public function getFile(string $bucket, string $name): Result
     {
         return $this->s3Client->getObject([
@@ -47,6 +71,13 @@ class Client implements ClientInterface
         ]);
     }
 
+    /**
+     * put file from url into bucket
+     * @param string $bucket
+     * @param string $file
+     * @param string|null $name
+     * @return Result
+     */
     public function putFromUrl(string $bucket, string $file, string $name = null): Result
     {
         if (is_null($name) || empty($name)) {
@@ -60,6 +91,13 @@ class Client implements ClientInterface
         ]);
     }
 
+    /**
+     * put file into bucket
+     * @param string $bucket
+     * @param string $file
+     * @param string|null $name
+     * @return Result
+     */
     public function putFromFile(string $bucket, string $file, string $name = null): Result
     {
         if (is_null($name) || empty($name)) {
@@ -74,7 +112,12 @@ class Client implements ClientInterface
     }
 
 
-
+    /**
+     * Remove object file in bucket
+     * @param string $bucket
+     * @param string $name
+     * @return Result
+     */
     public function removeFile(string $bucket, string $name): Result
     {
         return $this->s3Client->deleteObject([
@@ -83,6 +126,14 @@ class Client implements ClientInterface
         ]);
     }
 
+    /**
+     * move object file to another bucket
+     * @param string $sourceBucket
+     * @param string $sourceName
+     * @param string $destinationBucket
+     * @param string|null $destinationName
+     * @return Result
+     */
     public function moveFile(string $sourceBucket,
                              string $sourceName,
                              string $destinationBucket,
@@ -98,6 +149,12 @@ class Client implements ClientInterface
         ]);
     }
 
+    /**
+     * Download stream object file
+     * @param string $bucket
+     * @param string $name
+     * @return mixed
+     */
     public function downloadFile(string $bucket, string $name)
     {
         $result = $this->s3Client->getObject([
@@ -108,11 +165,24 @@ class Client implements ClientInterface
         return $result['Body'];
     }
 
+    /**
+     * Get generate url object file
+     * @param string $bucket
+     * @param string $name
+     * @return string
+     */
     public function getUrl(string $bucket, string $name)
     {
         return $this->s3Client->getObjectUrl($bucket,$name);
     }
 
+    /**
+     * get generate url object with expired
+     * @param string $bucket
+     * @param string $name
+     * @param string $timeout
+     * @return string
+     */
     public function preSignUrl(string  $bucket, string $name, string $timeout)
     {
         $cmd = $this->s3Client->getCommand('GetObject',[
@@ -122,5 +192,15 @@ class Client implements ClientInterface
         $request = $this->s3Client->createPresignedRequest($cmd,$timeout);
         return (string) $request->getUri();
 
+    }
+
+    public function listFile(string $bucket)
+    {
+        $object = $this->s3Client->listObjects(['bucket' => $bucket]);
+        $list = [];
+        foreach ($object['Content'] as $item) {
+            $item[] = $item['Key'];
+        }
+        return $list;
     }
 }
