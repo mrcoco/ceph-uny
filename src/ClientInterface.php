@@ -26,4 +26,5 @@ interface ClientInterface
         string $destinationBucket,
         string $destinationName = null
     );
+    public function preSignUrl(string  $bucket, string $name, string $timeout);
 }

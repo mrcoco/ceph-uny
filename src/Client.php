@@ -112,4 +112,14 @@ class Client implements ClientInterface
     {
         return $this->s3Client->getObjectUrl($bucket,$name);
     }
+
+    public function preSignUrl(string  $bucket, string $name, string $timeout)
+    {
+        $cmd = $this->s3Client->getCommand('GetObject',[
+            'Bucket' => $bucket,
+            'Key' => $name,
+            ]);
+        return $this->s3Client->createPresignedRequest($cmd,$timeout);
+
+    }
 }
